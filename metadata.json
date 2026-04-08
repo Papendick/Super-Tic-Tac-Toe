@@ -1,0 +1,5 @@
+{
+  "name": "Super Tic-Tac-Toe",
+  "description": "A strategic variant of Tic-Tac-Toe played on a 9x9 grid. Localized in German.",
+  "requestFramePermissions": []
+}
