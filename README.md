@@ -1,20 +1,67 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Super Tic Tac Toe (React + Vite + Android APK)
 
-# Run and deploy your AI Studio app
+Dieses Repository enthält **Super Tic Tac Toe** als Webspiel und als Android-Projekt, das den Web-Build lokal im App-Bundle ausliefert.
 
-This contains everything you need to run your app locally.
+## Tech-Stack
 
-View your app in AI Studio: https://ai.studio/apps/2bb586d3-36e1-4db6-b980-84b2c8765dd7
+- React 19 + TypeScript
+- Vite 6
+- Zustand (State Management)
+- Native Android (WebView-Wrapper mit Gradle)
 
-## Run Locally
+## Lokale Entwicklung (Web)
 
-**Prerequisites:**  Node.js
+### Voraussetzungen
 
+- Node.js 20+
+- npm 10+
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Start
+
+```bash
+npm install
+npm run dev
+```
+
+Die Dev-URL ist standardmäßig `http://localhost:3000`.
+
+## Android-Build
+
+### Voraussetzungen
+
+- Android Studio + Android SDK
+- JDK 21
+- Zugriff auf Maven Central und Google Maven (`dl.google.com`)
+
+### Ablauf
+
+```bash
+npm run android:debug
+```
+
+Dieser Befehl führt aus:
+1. `npm run build:web`
+2. `npm run android:sync` (kopiert `dist/` nach `android/app/src/main/assets/public`)
+3. `gradle assembleDebug` im `android/`-Ordner
+
+### APK-Pfade
+
+- Debug-APK: `android/app/build/outputs/apk/debug/app-debug.apk`
+- Release-APK (unsigned): `android/app/build/outputs/apk/release/app-release-unsigned.apk`
+
+Release-Build:
+
+```bash
+npm run android:release
+```
+
+## Installation auf Gerät
+
+```bash
+adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+```
+
+## CI / GitHub Actions
+
+Der Workflow `.github/workflows/android-apk.yml` baut bei Push/PR (und manuell via `workflow_dispatch`) Debug- und Release-APK und lädt beide als Artefakte hoch.
+
