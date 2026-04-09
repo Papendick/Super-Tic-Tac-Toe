@@ -282,7 +282,7 @@ export const useQuantumStore = create<QuantumStore>()(
         });
 
         // Emit Events for Challenge Tracking
-        if (!oldSectorWinner && newSectorWinner) {
+        if (!oldSectorWinner && (newSectorWinner === 'X' || newSectorWinner === 'O')) {
           gameEvents.emit('SECTOR_CAPTURED', {
             player: newSectorWinner,
             sectorIndex: sIdx
